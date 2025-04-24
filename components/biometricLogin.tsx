@@ -1,7 +1,7 @@
 import { Text, StyleSheet, View, Alert, Image } from "react-native";
 import { useState } from "react";
 import * as LocalAuthentication from "expo-local-authentication";
-import { TouchableOpacity } from "react-native-gesture-handler";
+import { TouchableOpacity } from "react-native";
 
 export default function BiometricLogin() {
   const [isAuthenticated, setAuthenticated] = useState(false);

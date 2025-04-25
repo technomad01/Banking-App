@@ -3,15 +3,15 @@
 A mobile app that allows users to securely view their transaction history and details through biometric authentication (Face ID/Touch ID) and view expenses. Built with React Native, Expo, and integrated with biometric login for secure access.
 
 <br><br>
-![Login Page](./assets/imageS/IMG-1.PNG)
+![Login Page](./assets/images/IMG-1.PNG)
 <br><br>
-![Home Page](./assets/imageS/IMG-2.PNG)
+![Home Page](./assets/images/IMG-2.PNG)
 <br><br>
-![Transaction History](./assets/imageS/IMG-3.PNG)
+![Transaction History](./assets/images/IMG-3.PNG)
 <br><br>
-![Transaction History](./assets/imageS/IMG-4.PNG)
+![Transaction History](./assets/images/IMG-4.PNG)
 <br><br>
-![Transaction Details](./assets/imageS/IMG-5.PNG)
+![Transaction Details](./assets/images/IMG-5.PNG)
 <br><br>
 
 ## Features

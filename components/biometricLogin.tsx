@@ -1,10 +1,10 @@
 import { Text, StyleSheet, View, Alert, Image } from "react-native";
-import { useState } from "react";
 import * as LocalAuthentication from "expo-local-authentication";
 import { TouchableOpacity } from "react-native";
+import { useAuth } from "@/context/auth-context";
 
 export default function BiometricLogin() {
-  const [isAuthenticated, setAuthenticated] = useState(false);
+  const { isAuthenticated, setIsAuthenticated } = useAuth();
 
   const handleAuthentication = async () => {
     const hasHardware = await LocalAuthentication.hasHardwareAsync();
@@ -12,10 +12,10 @@ export default function BiometricLogin() {
 
     if (hasHardware && isEnrolled) {
       const result = await LocalAuthentication.authenticateAsync({
-        promptMessage: `Face ID`,
+        promptMessage: `Login with Face ID/Passcode`,
       });
       if (result.success) {
-        setAuthenticated(true);
+        setIsAuthenticated(true);
       } else {
         Alert.alert("Face Not Recognized");
       }
@@ -28,6 +28,7 @@ export default function BiometricLogin() {
     <View style={styles.container}>
       <Text style={styles.logo}>Ryt Bank</Text>
       <Text style={styles.subtitle}>Your trusted digital bank</Text>
+
       {isAuthenticated ? (
         <View style={styles.authenticatedContainer}>
           <Image
@@ -36,11 +37,11 @@ export default function BiometricLogin() {
             }}
             style={styles.icon}
           />
-          <Text style={styles.welcome}>Welcome</Text>
+          <Text style={styles.welcome}>Welcome!</Text>
         </View>
       ) : (
         <TouchableOpacity style={styles.button} onPress={handleAuthentication}>
-          <Text style={styles.welcome}>Login with Passcode/FaceID</Text>
+          <Text>Login with Passcode/FaceID</Text>
         </TouchableOpacity>
       )}
     </View>

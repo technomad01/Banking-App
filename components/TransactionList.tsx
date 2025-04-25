@@ -1,12 +1,13 @@
 import { sampleTransactions } from "@/data/sampleTransactions";
 import * as LocalAuthentication from "expo-local-authentication";
+import { useRouter } from "expo-router";
 import { useState } from "react";
+import { useAuth } from "@/context/auth-context";
 import {
   View,
   Alert,
   FlatList,
   Text,
-  Button,
   StyleSheet,
   ActivityIndicator,
   TouchableOpacity,
@@ -17,17 +18,20 @@ type Transaction = {
   amount: number;
   date: string;
   description: string;
-  type: "debit" | "credit";
+  type: "Debit" | "Credit";
 };
 
 type TransactionItemProps = {
   transaction: Transaction;
+  router: any;
 };
 
 export default function TransactionList() {
   const [refresh, setRefresh] = useState(false);
-  const [revealed, setRevealed] = useState(false);
   const [loading, setLoading] = useState(false);
+  const { isAuthenticated, setIsAuthenticated } = useAuth();
+
+  const router = useRouter();
 
   const handleRevealAll = async () => {
     setLoading(true);
@@ -40,7 +44,7 @@ export default function TransactionList() {
       });
 
       if (result.success) {
-        setRevealed(true);
+        setIsAuthenticated(true);
       } else {
         Alert.alert("Authentication failed");
       }
@@ -57,7 +61,7 @@ export default function TransactionList() {
 
   return (
     <View style={{ flex: 1 }}>
-      {!revealed && (
+      {!isAuthenticated && (
         <View style={styles.overlay}>
           {loading ? (
             <ActivityIndicator size="large" color="#fff" />
@@ -76,7 +80,7 @@ export default function TransactionList() {
         data={sampleTransactions}
         keyExtractor={(item) => item.id.toString()}
         renderItem={({ item }) => (
-          <TransactionItem transaction={item} revealed={revealed} />
+          <TransactionItem transaction={item} router={router} />
         )}
         contentContainerStyle={styles.container}
         onRefresh={onRefresh}
@@ -86,29 +90,35 @@ export default function TransactionList() {
   );
 }
 
-const TransactionItem = ({
-  transaction,
-  revealed,
-}: TransactionItemProps & { revealed: boolean }) => {
+const TransactionItem = ({ transaction, router }: TransactionItemProps) => {
+  const { isAuthenticated } = useAuth();
+
+  const handlePress = () => {
+    router.push({
+      pathname: `/transactionId`,
+      params: { transaction: JSON.stringify(transaction) },
+    });
+  };
+
   return (
-    <View style={styles.item}>
+    <TouchableOpacity onPress={handlePress} style={styles.item}>
       <View style={styles.row}>
         <Text style={styles.description}>{transaction.description}</Text>
         <Text
           style={[
             styles.amount,
-            transaction.type === "credit" ? styles.credit : styles.debit,
+            transaction.type === "Credit" ? styles.credit : styles.debit,
           ]}
         >
-          {revealed
+          {isAuthenticated
             ? `${
-                transaction.type === "credit" ? "+" : "-"
+                transaction.type === "Credit" ? "+" : "-"
               }${transaction.amount.toFixed(2)}`
             : "****"}
         </Text>
       </View>
       <Text style={styles.date}>{transaction.date}</Text>
-    </View>
+    </TouchableOpacity>
   );
 };
 

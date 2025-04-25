@@ -40,6 +40,6 @@ A mobile app that allows users to securely view their transaction history and de
 
    ```
 
-   This will open a new tab in your browser. You can:
-
-Scan the QR code above with Expo Go (Android) or the Camera app (iOS).
+   This will open a new tab in your browser.
+   
+   You can scan the QR code above with Expo Go (Android) or the Camera app (iOS).

@@ -2,11 +2,14 @@ import { Text, StyleSheet, View, Alert, Image } from "react-native";
 import * as LocalAuthentication from "expo-local-authentication";
 import { TouchableOpacity } from "react-native";
 import { useAuth } from "@/context/auth-context";
+import { useState } from "react";
 
 export default function BiometricLogin() {
   const { isAuthenticated, setIsAuthenticated } = useAuth();
+  const [loading, setLoading] = useState(false);
 
   const handleAuthentication = async () => {
+    setLoading(true);
     const hasHardware = await LocalAuthentication.hasHardwareAsync();
     const isEnrolled = await LocalAuthentication.isEnrolledAsync();
 
@@ -22,6 +25,7 @@ export default function BiometricLogin() {
     } else {
       Alert.alert("Biometric authentication is not available on this device");
     }
+    setLoading(false);
   };
 
   return (

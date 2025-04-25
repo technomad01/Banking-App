@@ -126,6 +126,7 @@ const styles = StyleSheet.create({
   container: {
     padding: 16,
     paddingBottom: 100,
+    backgroundColor: "#030453",
   },
   overlay: {
     position: "absolute",

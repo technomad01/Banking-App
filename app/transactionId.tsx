@@ -61,26 +61,33 @@ export default function TransactionDetail() {
     <>
       <Stack.Screen options={{ title: "Details", headerBackTitle: "Return" }} />
       <View style={styles.container}>
-        <Text style={styles.label}>Transaction ID: {id}</Text>
-        <Text style={styles.label}>Description:</Text>
-        <Text style={styles.value}>{description}</Text>
-
-        <Text style={styles.label}>Amount:</Text>
-        <Text
-          style={[
-            styles.value,
-            type === "Credit" ? styles.credit : styles.debit,
-          ]}
-        >
-          {type === "Credit" ? "+" : "-"}
-          {formattedAmount}
-        </Text>
-
-        <Text style={styles.label}>Date:</Text>
-        <Text style={styles.value}>{date}</Text>
-
-        <Text style={styles.label}>Type:</Text>
-        <Text style={styles.value}>{type}</Text>
+        <View style={styles.detailBox}>
+          <Text style={styles.label}>Transaction ID: {id}</Text>
+        </View>
+        <View style={styles.detailBox}>
+          <Text style={styles.label}>Description:</Text>
+          <Text style={styles.value}>{description}</Text>
+        </View>
+        <View style={styles.detailBox}>
+          <Text style={styles.label}>Amount:</Text>
+          <Text
+            style={[
+              styles.value,
+              type === "Credit" ? styles.credit : styles.debit,
+            ]}
+          >
+            {type === "Credit" ? "+" : "-"}
+            {formattedAmount}
+          </Text>
+        </View>
+        <View style={styles.detailBox}>
+          <Text style={styles.label}>Date:</Text>
+          <Text style={styles.value}>{date}</Text>
+        </View>
+        <View style={styles.detailBox}>
+          <Text style={styles.label}>Type:</Text>
+          <Text style={styles.value}>{type}</Text>
+        </View>
       </View>
     </>
   );
@@ -88,9 +95,22 @@ export default function TransactionDetail() {
 
 const styles = StyleSheet.create({
   container: {
-    padding: 24,
-    backgroundColor: "#fff",
+    padding: 20,
+    backgroundColor: "#030453",
     flex: 1,
+  },
+  detailBox: {
+    backgroundColor: "#FFFAFA",
+    padding: 10,
+    borderRadius: 16,
+    marginBottom: 16,
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.3,
+    shadowRadius: 8,
+    elevation: 6,
+    borderWidth: 1,
+    borderColor: "#333",
   },
   label: {
     fontWeight: "bold",

@@ -25,3 +25,21 @@ A mobile app that allows users to securely view their transaction history and de
    git clone https://github.com/your-username/digital-bank-app.git
    cd digital-bank-app
    ```
+
+   2. Install dependencies:
+
+   ```bash
+   npm install
+
+   ```
+
+3. Start the Expo development server:
+
+   ```bash
+   npx expo start
+
+   ```
+
+   This will open a new tab in your browser. You can:
+
+Scan the QR code above with Expo Go (Android) or the Camera app (iOS).

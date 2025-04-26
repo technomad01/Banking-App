@@ -30,6 +30,7 @@ export default function TransactionList() {
   const [refresh, setRefresh] = useState(false);
   const [loading, setLoading] = useState(false);
   const { isAuthenticated, setIsAuthenticated } = useAuth();
+  const [overlayDismissed, setOverlayDismissed] = useState(false);
 
   const router = useRouter();
 
@@ -61,17 +62,25 @@ export default function TransactionList() {
 
   return (
     <View style={{ flex: 1 }}>
-      {!isAuthenticated && (
+      {!isAuthenticated && !overlayDismissed && (
         <View style={styles.overlay}>
           {loading ? (
             <ActivityIndicator size="large" color="#fff" />
           ) : (
-            <TouchableOpacity
-              style={styles.revealButton}
-              onPress={handleRevealAll}
-            >
-              <Text style={styles.revealText}>Reveal Expenses</Text>
-            </TouchableOpacity>
+            <>
+              <TouchableOpacity
+                style={styles.revealButton}
+                onPress={handleRevealAll}
+              >
+                <Text style={styles.revealText}>Reveal Expenses</Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={styles.dismissButton}
+                onPress={() => setOverlayDismissed(true)}
+              >
+                <Text style={styles.dismissText}>Dismiss</Text>
+              </TouchableOpacity>
+            </>
           )}
         </View>
       )}
@@ -184,5 +193,18 @@ const styles = StyleSheet.create({
     marginTop: 4,
     fontSize: 12,
     color: "#888",
+  },
+  dismissButton: {
+    marginTop: 16,
+    paddingVertical: 12,
+    paddingHorizontal: 24,
+    borderRadius: 8,
+    backgroundColor: "#fff",
+  },
+  dismissText: {
+    color: "#000",
+    fontSize: 16,
+    textAlign: "center",
+    fontWeight: "600",
   },
 });
